@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+}
+
+body {
+    font-family: 'Barlow', sans-serif;
+  } 
+  
+  h1,
+  h2,
+  h3,
+  h5,
+  h6,
+  input,
+  div {
+    font-family: "Barlow", sans-serif;
+  }
+
+  .btnBlue001{
+      background-color: #1C4B9F;
+      border-radius: 6px;
+      padding: 4px 12px 4px 12px;
+      color: white;
+      font-weight: 800;
+      outline: none;
+      border: none;
+      box-shadow: none;
+      line-height: 16px;
+      font-size: 13px;
+      letter-spacing: 0.335em;
+      text-align: center;
+  }
