@@ -6,7 +6,6 @@ import { crearFormularioLogin, handleLogin } from "./funciones.js";
 window.isLoged = false
 
 
-
 crearFormularioLogin()
 
 
