@@ -27,6 +27,7 @@ export const crearFormularioLogin = () =>{
         </div>
         `
         document.querySelector('#btnLogin').addEventListener('click',handleLogin)
+        document.querySelector('#btnRegistro').addEventListener('click',crearFormularioRegistro)
     }else{
        divContenido.innerHTML = ``
     }
@@ -34,7 +35,7 @@ export const crearFormularioLogin = () =>{
 
 
 
-export const crearMenu = () =>{
+const crearMenu = () =>{
     const divContenido = document.querySelector('.contenido')
     const opcionesMenu = [
         {usuario:1,option:1,title:'Realizar Solicitud'},
@@ -70,6 +71,11 @@ export const handleLogin = () =>{
     const password = document.querySelector('#txtPassword').value
     const txtError = document.querySelector('.txtError')
 
+    if (!usuario || !password) {
+        txtError.innerHTML=`Error usuario o contraseña vacío.`
+        return
+    }
+
     console.log(personas)
     if (tipoUsuario == 1) {
         const personasFiltered = personas.filter(persona => persona.Usuario === usuario && persona.Password === password)
@@ -92,7 +98,14 @@ export const handleLogin = () =>{
         }
     }else{
         const empresasFiltered = empresas.filter(empresa => empresa.Usuario === usuario && empresa.Password === password)
+
         if (empresasFiltered.length > 0){
+
+            //Validar que empresa este habilitada
+            if (empresasFiltered[0].Estado === 'D') {
+                txtError.innerHTML=`Error empresa deshabilitada.`
+                return
+            }
             
             console.log(empresasFiltered[0])
             isLoged = true
@@ -108,7 +121,7 @@ export const handleLogin = () =>{
 }
 
 
-export const handleMenu1 = () =>{
+const handleMenu1 = () =>{
     switch (tipoPerfilLoged) {
         case 1:
             crearFormularioRealizarSolicitud()
@@ -125,7 +138,7 @@ export const handleMenu1 = () =>{
     }
 }
 
-export const handleMenu2 = () =>{
+const handleMenu2 = () =>{
     switch (tipoPerfilLoged) {
         case 1:
             crearFormularioVerMisSolicitudes()
@@ -142,7 +155,7 @@ export const handleMenu2 = () =>{
     }
 }
 
-export const handleMenu3 = () =>{
+const handleMenu3 = () =>{
     switch (tipoPerfilLoged) {
         case 1:
             crearFormularioVerEstadisticasPersona()
@@ -159,9 +172,147 @@ export const handleMenu3 = () =>{
     }
 }
 
-export const handleMenu4 = () =>{
+const handleMenu4 = () =>{
     isLoged = false
     crearFormularioLogin()
+}
+
+
+const crearFormularioRegistro = () =>{
+    const divContenido = document.querySelector('.contenido')
+    let registroTipoUsuario =  window.registroTipoUsuario
+
+    if (!registroTipoUsuario) {
+        registroTipoUsuario = '1'
+    }
+
+    const handleRegistrarse = () =>{
+        const txtError = document.querySelector('#txtError')
+        txtError.innerHTML=``
+
+        if (registroTipoUsuario == '1'){
+            const cedula = document.querySelector('#txtCedula').value
+            const usuario = document.querySelector('#txtUsuario').value
+            const nombre = document.querySelector('#txtNombre').value
+            const apellido = document.querySelector('#txtApellido').value
+            const password = document.querySelector('#txtPassword').value
+            
+
+            if (!cedula || !usuario || !nombre || !apellido || !password) {
+                txtError.innerHTML=`Error hay datos vacios`
+                return
+            }
+
+            if (personas.filter(persona => persona.Usuario === usuario).length > 0) {
+                txtError.innerHTML=`Error usuario ya existe`
+                return
+            }
+
+            personas.push(new Persona(cedula,nombre,apellido,usuario,password))
+            alert('Usuario registrado correctamente')
+            
+        }else{
+            const rut = document.querySelector('#txtRUT').value
+            const razonSocial = document.querySelector('#txtRazonSocial').value
+            const nombreFantasia = document.querySelector('#txtNombreFantasia').value
+            const usuario = document.querySelector('#txtUsuario').value
+            const password = document.querySelector('#txtPassword').value
+            const tipoVehiculoSel = parseInt(document.querySelector('#solTipoVehiculo').value)
+            const tipoVehiculoFiltered = tiposVehiculos.filter(tipoVehiculo=>tipoVehiculo.Id === tipoVehiculoSel)[0]
+
+            if (!rut || !razonSocial || !nombreFantasia || !usuario || !password) {
+                txtError.innerHTML=`Error hay datos vacios`
+                return
+            }
+
+            if (empresas.filter(empresa => empresa.Usuario === usuario).length > 0) {
+                txtError.innerHTML=`Error usuario ya existe`
+                return
+            }
+
+            empresas.push(new Empresa(rut,razonSocial,nombreFantasia,usuario,password,tipoVehiculoFiltered,'D'))
+            alert('Usuario registrado correctamente')
+
+        }
+    }
+
+    const handleChangeTipoUsuario = (e) =>{
+        registroTipoUsuario = e.target.value
+        console.log(registroTipoUsuario)
+        crearFormularioRegistroByType()
+    }
+
+    const crearFormularioRegistroByType = () =>{
+        if (registroTipoUsuario == '1'){
+           divContenido.innerHTML = `
+            <div class='register'>
+                <div class='flex'>
+                    <input type="text" id="txtCedula" placeholder="Cedula"  >
+                    <input type="text" id="txtUsuario" placeholder="Nombre Usuario" >
+                </div>
+                <div class='flex'>
+                    <input type="text" id="txtNombre" placeholder="Nombre"  >
+                    <input type="text" id="txtApellido" placeholder="Apellido" >
+                </div>
+                <div class='flex'>
+                    <input type="password" id="txtPassword" placeholder="Contraseña" >
+                </div>
+                <p id='txtError' class='txtError' ></p>
+                <select id="registroTipoUsuario">
+                    <option value="1" ${ registroTipoUsuario === "1" ? 'selected' : null} >PERSONA</option>
+                    <option value="2" ${ registroTipoUsuario === "2" ? 'selected' : null} >EMPRESA</option>
+                </select>
+                <div>
+                    <input type="button" id="btnRegistrarse" value="Registrarse" class="btnBlue001">
+                    <input type="button" id="btnVolverLogin" value="Volver a Ingresasr" class="btnBlue001">
+                </div>
+            </div>
+            `
+           
+        }else{
+            divContenido.innerHTML = `
+            <div class='register'>
+                <div class='flex'>
+                    <input type="text" id="txtRUT" placeholder="RUT"  >
+                    <input type="text" id="txtRazonSocial" placeholder="Razon Social" >
+                </div>
+                <div class='flex'>
+                    <input type="text" id="txtNombreFantasia" placeholder="Nombre Fantasia"  >
+                    <input type="text" id="txtUsuario" placeholder="Nombre Usuario" >
+                </div>
+                <div class='flex'>
+                    <input type="password" id="txtPassword" placeholder="Contraseña" >
+                    <select id="solTipoVehiculo">
+                    ${tiposVehiculos.map(tipoVehiculo=>
+                        `<option value="${tipoVehiculo.Id}">${tipoVehiculo.Nombre}</option>`).join('')
+                    }
+                    </select>
+                </div>
+                <p id='txtError' class='txtError' ></p>
+                <select id="registroTipoUsuario" >
+                    <option value="1" ${ registroTipoUsuario === "1" ? 'selected' : null} >PERSONA</option>
+                    <option value="2" ${ registroTipoUsuario === "2" ? 'selected' : null} >EMPRESA</option>
+                </select>
+                <div>
+                    <input type="button" id="btnRegistrarse" value="Registrarse" class="btnBlue001">
+                    <input type="button" id="btnVolverLogin" value="Volver a Ingresasr" class="btnBlue001">
+                </div>
+            </div>
+            `
+        }
+
+        document.querySelector('#btnRegistrarse').addEventListener('click',handleRegistrarse)
+        document.querySelector('#btnVolverLogin').addEventListener('click',crearFormularioLogin)
+
+        //on change tipo usuario
+        document.querySelector('#registroTipoUsuario').addEventListener('change',(e)=>handleChangeTipoUsuario(e))
+    }
+
+    crearFormularioRegistroByType()
+
+    
+
+    
 }
 
 
@@ -173,6 +324,7 @@ const crearFormularioRealizarSolicitud = () =>{
 
     divContenido.innerHTML = `
         <div>
+            ${arrowLeft}
             <div>
                 <div>
                     <input type="number" id="txtDistancia" placeholder="Distancia (KM)"  >
@@ -189,13 +341,54 @@ const crearFormularioRealizarSolicitud = () =>{
             </div>
             <p class='txtError mt-3' ></p>
             <div>
-                <input type="button" id="btnCrearTVehiculo" value="Crear" class="btnBlue001 mt-3" >
+                <input type="button" id="btnCrearSolicitud" value="Crear" class="btnBlue001 mt-3" >
             </div>
         </div>
     `
 
-    //click  crear
-    document.querySelector('#btnCrearTVehiculo').addEventListener('click',handleRealizarSolicitud)
+    const handleRealizarSolicitud = () =>{
+        const distancia = parseInt(document.querySelector('#txtDistancia').value)
+        const descripcion = document.querySelector('#txtDescripcion').value
+        const txtError = document.querySelector('.txtError')
+        const solTipoVehiculo = parseInt(document.querySelector('#solTipoVehiculo').value)
+        const personaLogeada = obtenerPerOEmpLogeada('P')
+        const vehiculoSeleccionado = tiposVehiculos.filter(tipoVehiculo=>tipoVehiculo.Id === solTipoVehiculo)[0]
+        const foto = document.querySelector('#file').files[0]
+        const reader = new FileReader();
+        txtError.innerHTML = ``
+    
+
+        if (!foto) {
+            txtError.innerHTML = `Error imagen vacia.`
+            return
+        }
+
+        if (!distancia) {
+            txtError.innerHTML = `Error distancia debe ser mayor a 0 y numerico.`
+            return 
+        }
+
+        
+
+        reader.onload = () =>{
+            const fotoB64 = reader.result.replace("data:", "").replace(/^.+,/, "");
+            console.log(fotoB64)
+            
+            envios.push(new Envio(personaLogeada,vehiculoSeleccionado,distancia,descripcion,fotoB64,'Pendiente',''))
+            alert('Solicitud realizada con exito.')
+            crearMenu()
+        }
+    
+        reader.readAsDataURL(foto);
+       
+
+    }
+
+
+    //click crear solicitud
+    document.querySelector('#btnCrearSolicitud').addEventListener('click',handleRealizarSolicitud)
+     //click  volver
+     document.querySelector('#btnArrowLeft').addEventListener('click',crearMenu)
 }
 
 const crearFormularioVerMisSolicitudes = () =>{
@@ -301,23 +494,32 @@ const crearFormularioSolicitudesPendientes = () =>{
     divContenido.innerHTML = `
         <div>
             ${arrowLeft}
+            <p id='txtError' class='txtError' ></p>
             <div id='contenedorSolicitudes' class='mt-3 grid'>
                 
             </div>
         </div>
     `
 
+    const txtError =  document.querySelector('#txtError')
+
     const handleAsignarEnvio = (envio) =>{
         const empresa = obtenerPerOEmpLogeada('E')
-        envio.Empresa = empresa
-        envio.Estado = 'En Transito'
-        crearFormularioSolicitudesPendientes()
-        
+        if (empresa.Estado === 'H') {
+            envio.Empresa = empresa
+            envio.Estado = 'En Transito'
+        }else{
+            txtError.innerHTML = `Error Empresa se Encuentra Deshabilitada.`
+        }
+
+        listarSolicitudes()
     }
 
     const listarSolicitudes = () =>{
         const divContenedor = document.querySelector('#contenedorSolicitudes')
         const enviosFiltered = obtenerEnviosPendientes()
+
+        divContenedor.innerHTML = ``
 
         enviosFiltered.map((envio,i)=>{
             
@@ -337,7 +539,7 @@ const crearFormularioSolicitudesPendientes = () =>{
          })
 
          enviosFiltered.map((envio,i)=>{
-              //click  asignar
+            //click  asignar envio
             document.querySelector(`#btnAsignarEnvio${i}`).addEventListener('click',()=>handleAsignarEnvio(envio))
          })
 
@@ -357,21 +559,30 @@ const crearFormularioSolicitudesEnTransito = () =>{
     divContenido.innerHTML = `
         <div>
             ${arrowLeft}
+            <p id='txtError' class='txtError' ></p>
             <div id='contenedorSolicitudes' class='mt-3 grid'>
                 
             </div>
         </div>
     `
 
+    const txtError =  document.querySelector('#txtError')
+
+    const handleFinalizarEnvio = (envio) =>{
+        const empresaLoged = obtenerPerOEmpLogeada('E')
+        if (empresaLoged.Estado === 'H') {
+            envio.Estado = 'Finalizada'
+        }else{
+            txtError.innerHTML = `Error Empresa se Encuentra Deshabilitada.`
+        }
+        listarSolicitudes()
+    }
+
     const listarSolicitudes = () =>{
         const divContenedor = document.querySelector('#contenedorSolicitudes')
-        const enviosFiltered = obtenerEnviosEnTransito()
+        const enviosFiltered = obtenerEnviosEnTransito()        
 
-
-        const handleFinalizarEnvio = (envio) =>{
-            envio.Estado = 'Finalizada'
-            crearFormularioSolicitudesEnTransito()
-        }
+        divContenedor.innerHTML = ``
 
         enviosFiltered.map((envio,i)=>{
             
@@ -400,9 +611,11 @@ const crearFormularioSolicitudesEnTransito = () =>{
          })
 
          enviosFiltered.map((envio,i)=>{
-               //click  asignar
-                document.querySelector(`#btnFinalizarEnvio${i}`).addEventListener('click',()=>handleFinalizarEnvio(envio))
+            //click  finalizar envio
+            document.querySelector(`#btnFinalizarEnvio${i}`).addEventListener('click',()=>handleFinalizarEnvio(envio))
          })
+
+
     }
 
     listarSolicitudes()
@@ -414,6 +627,7 @@ const crearFormularioSolicitudesEnTransito = () =>{
 const crearFormularioVerEstadisticasEmpresa = () =>{
     const divContenido = document.querySelector('.contenido')
     const estados = [ 'En Transito', 'Finalizada']
+    let estadoSeleccionado = 'En Transito'
 
     divContenido.innerHTML = `
         <div>
@@ -428,15 +642,20 @@ const crearFormularioVerEstadisticasEmpresa = () =>{
         </div>
     `
 
-    //ARREGLAR EL CHANGE CON UNA VARIABLE DE ESTADO SELECCIONADO
     const changeEstado = (e) =>{
-        const estado = e.target.value
-        const cantidadSolicitudes = obtenerEnviosByEstadoEmpresa(estado).length
-        document.querySelector('#estadisticasCantidadSolicitudes').innerHTML=`Cantidad de solicitudes en estado ${estado}:${cantidadSolicitudes}`
-
+        estadoSeleccionado = e.target.value
+        listarEstadisticaCantidadSolicitudes()
     }
 
     document.querySelector('#estadisticasEstado').addEventListener('change',(e)=>changeEstado(e))
+
+    const listarEstadisticaCantidadSolicitudes = () =>{
+        const cantidadSolicitudes = obtenerEnviosByEstadoEmpresa(estadoSeleccionado).length
+        document.querySelector('#estadisticasCantidadSolicitudes').innerHTML=`Cantidad de solicitudes en estado ${estadoSeleccionado}:${cantidadSolicitudes}`
+    }
+
+    listarEstadisticaCantidadSolicitudes()
+
 
     const listarPersonas = () =>{
         const divContenedor = document.querySelector('#contenedorPersonas')
@@ -540,7 +759,6 @@ const crearFormularioAdministrarEmpresas = () =>{
         })
     }
 
-    //ARREGLAR EL CHANGE CON UNA VARIABLE DE ESTADO SELECCIONADO
     const changeEmpresa = (e) =>{
         txtBuscarEmpresa = e.target.value
         listarEmpresas()
@@ -571,54 +789,126 @@ const crearFormularioAdministrarEmpresas = () =>{
 }
 
 const crearFormularioCrearTVehiculo = () =>{
+    const divContenido = document.querySelector('.contenido')
 
+    divContenido.innerHTML = `
+        <div>
+            ${arrowLeft}
+            <p id='txtError' class='txtError' ></p>
+            <div class='flex'>
+                <input type="text" id="txtNombreVehiculo" placeholder="Buscar Empresa" >
+                <input type="button" id="btnCrearTVehiculo" value="Agregar" class='btnBlue001' >
+            </div>
+            <div id='contenedorTVehiculos' class='mt-3 grid'>
+                
+            </div>
+        </div>
+    `
+
+    const listarTVehiculos = () =>{
+        const divContenedor = document.querySelector('#contenedorTVehiculos')
+
+        divContenedor.innerHTML =``
+
+        tiposVehiculos.map(tVehiculo=>{
+            
+            divContenedor.innerHTML+=`
+            <div class='flex cardContainer' >
+                <p>${tVehiculo.Id} - ${tVehiculo.Nombre}</p>
+            </div>
+            `
+          })
+
+    }
+
+    listarTVehiculos()
+
+    const handleCrearTVehiculo = () =>{
+        const txtError = document.querySelector('#txtError')
+        const nombreVehiculo  = document.querySelector('#txtNombreVehiculo').value
+        const nextId = tiposVehiculos.sort((a,b)=>a.Id-b.Id).reverse()[0].Id + 1
+        txtError.innerHTML = ``
+
+        if (!nombreVehiculo) {
+            txtError.innerHTML = `Error nombre de vehiculo vacio`
+        }else{
+            tiposVehiculos.push(new TipoVehiculo(nextId,nombreVehiculo))
+        }
+
+        listarTVehiculos()
+    }
+
+    //click  volver
+    document.querySelector('#btnArrowLeft').addEventListener('click',crearMenu)
+
+    document.querySelector('#btnCrearTVehiculo').addEventListener('click',handleCrearTVehiculo)
 }
 
 const crearFormularioVerEstadisticasAdmin = () =>{
+    const divContenido = document.querySelector('.contenido')
+    const empresasConKM = obtenerEmpresasConKMRecorridos()
 
-}
+    divContenido.innerHTML = `
+        <div>
+            ${arrowLeft}
+            <div id='contenedorEmpresas' class='mt-3 grid'>
+            </div>
+        </div>
+    `
 
 
-const handleRealizarSolicitud = () =>{
-    const distancia = parseInt(document.querySelector('#txtDistancia').value)
-    const descripcion = document.querySelector('#txtDescripcion').value
-    const txtError = document.querySelector('.txtError')
-    const solTipoVehiculo = parseInt(document.querySelector('#solTipoVehiculo').value)
-    const personaLogeada = obtenerPerOEmpLogeada('P')
-    const vehiculoSeleccionado = tiposVehiculos.filter(tipoVehiculo=>tipoVehiculo.Id === solTipoVehiculo)[0]
-    const foto = document.querySelector('#file').files[0]
-    const reader = new FileReader();
+      
 
- 
+    const listarEmpresas = () =>{
+        const divContenedor = document.querySelector('#contenedorEmpresas')
+        
 
-    //validar distancia
-    if (distancia > 0) {
-        reader.onload = () =>{
-            const fotoB64 = reader.result.replace("data:", "").replace(/^.+,/, "");
-            console.log(fotoB64)
+        empresasConKM.map((empresaConKM,i)=>divContenedor.innerHTML+=`
+        <div class='flex cardContainer' >
+            <div>
+                <div class='mb-3'>
+                    <p class='sbold'>${empresaConKM.empresa.NombreFantasia}</p>
+                </div>
+                <div class='flex' >
+                    <div class='lable_value'>
+                        <p>Rut</p>
+                        <p class='sbold'>${empresaConKM.empresa.Rut}</p>
+                    </div>
+                    <div class='lable_value'>
+                        <p>Razón Social</p>
+                        <p class='sbold'>${empresaConKM.empresa.RazonSocial}</p>
+                    </div>
+                    <div class='lable_value'>
+                        <p>Estado</p>
+                        <p class='txtEstado sbold'>${empresaConKM.empresa.Estado}</p>
+                    </div>
+                    <div class='lable_value'>
+                        <p>KM</p>
+                        <p class='txtEstado sbold'>${empresaConKM.KM}</p>
+                    </div>
+                </div>
+            </div>
+           
             
-            envios.push(new Envio(personaLogeada,vehiculoSeleccionado,distancia,descripcion,fotoB64,'Pendiente',''))
-            crearMenu()
-        }
-    
-        reader.readAsDataURL(foto);
-       
-    }else{
-        txtError.innerHTML = `Error distancia debe ser mayor a 0 y numerico`
+        </div>
+        `)
     }
 
+    listarEmpresas()
+
+
+
+     //click  volver
+     document.querySelector('#btnArrowLeft').addEventListener('click',crearMenu)
+
 }
-
-
-
-
 
 
 const obtenerPerOEmpLogeada = (tipo) => {
     if (tipo === 'P') {
-        return personas.filter(persona => persona.Usuario === userLoged)[0] //ver si hay que traerse el window.personas en todas las funciones
+        return personas.filter(persona => persona.Usuario === userLoged)[0] 
     }else{
-        return empresas.filter(empresa => empresa.Usuario === userLoged)[0] //ver si hay que traerse el window.personas en todas las funciones
+        return empresas.filter(empresa => empresa.Usuario === userLoged)[0] 
     }
 }
 
@@ -655,8 +945,21 @@ const obtenerPersonasConMayoresEnviosByEmpresa = () =>{
         }
     })
 
-    window.personasConEnvio = personasConEnvios
-
     return personasConEnvios.sort((a,b)=>a.cantidadEnvios - b.cantidadEnvios).reverse() //ordenar de mayor a menor
+}
+
+
+const obtenerEmpresasConKMRecorridos = () => {
+    const empresasConKM = []
+
+
+    empresas.map(empresa=>{
+        const enviosEmpresa = envios.filter(envio=>envio.Empresa.Usuario === empresa.Usuario && envio.Estado === 'Finalizada')
+        const KM = enviosEmpresa.reduce((acc,el)=>acc+=el.Distancia,0)
+
+        empresasConKM.push({empresa,KM})
+    })
+
+    return empresasConKM.sort((a,b)=>a.KM - b.KM).reverse() //ordenar de mayor a menor
 }
 

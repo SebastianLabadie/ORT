@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div>
+			<input type="file" id="file" placeholder="Ingrese Foto" />
+		</div>
+
+		<script>
+			const fotoInput = document.querySelector("#file");
+
+			fotoInput.addEventListener("change", async () => {
+				const foto = fotoInput.files[0];
+				console.log("file ", foto);
+
+				const reader = new FileReader();
+
+				reader.onload = async () => {
+					const fotoB64 = reader.result.replace("data:", "").replace(/^.+,/, "");
+
+					console.log("b64: ", fotoB64);
+
+					const url = "../rest/wsCrearImagen";
+					const data = { ImagenB64: fotoB64, nombreImagen: foto.name };
+
+					try {
+						const res = await fetch(url, {
+							method: "POST",
+							body: JSON.stringify(data),
+							headers: {
+								"Content-Type": "application/json",
+							},
+						});
+
+						const resJson = await res.json();
+						const SDTUploadFile = {
+							FileNom: resJson.nombreImagen,
+							FilePathTmp: resJson.rutaImagen,
+						};
+
+						console.log(SDTUploadFile);
+
+						gx.fn.setControlValue("'+internalname+'", JSON.stringify(SDTUploadFile), false);
+
+						console.log("resJson: ", resJson);
+					} catch (error) {
+						console.log(error);
+					}
+				};
+
+				reader.readAsDataURL(foto);
+			});
+		</script>
+	</body>
+</html>
