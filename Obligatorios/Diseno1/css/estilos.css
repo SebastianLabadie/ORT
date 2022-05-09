@@ -15,12 +15,30 @@ body{
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+section > h1{
+	text-align: center;
+	margin: 12px 0;
+}
+
+.flex{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/* WRAPPER */
+.wrapper{
+	width: 1200px;
+	margin: 0 auto;
+}
+
 
 /* HEADER */
 
 nav{
-	width: 600px;
+	/* width: 600px; */
 	margin: 0 auto;
+    
 }
 
 
@@ -51,7 +69,7 @@ section{
 	height: 500px;
 }
 
-/* seccion saludo */
+/* seccion SALUDO */
 
 #saludo{
 	background-image: url("../img/bienvenido.jpeg");
@@ -60,20 +78,34 @@ section{
 
 	text-align: center;
 
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 
 }
 
 #saludo div{
-	margin-bottom: 10px;
+	width: 600px;
+	margin-bottom: 32px;
 }
 
-/* seccion promos */
+#saludo h1{
+	font-size: 48px;
+	font-weight: 800;
+}
 
+/* seccion PROMOS */
+#PROMOS img{
+	height: 250px;
+	max-width: 100%;
+	
+}
 
+#PROMOS article{
+	margin: 0 24px;
+}
 
+/* seccion RESERVAS */
 input, label {
     display:block;
 }
