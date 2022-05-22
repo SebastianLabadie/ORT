@@ -58,16 +58,24 @@
 
 		<section id="FOTOS">
 			<h1>Fotos</h1>
-			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, eius.</p>
-			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, eius.</p>
-			<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos, eius.</p>
+			<article class="wrapper">
+				<img src="./img/galeria_01.jpeg" alt="Galeria 1" title="Galeria 1"></img >
+				<article>
+					<img src="./img/galeria_02.jpeg" alt="Galeria 2" title="Galeria 2"></img >
+					<img src="./img/galeria_03.jpeg" alt="Galeria 3" title="Galeria 3"></img >
+					<img src="./img/galeria_04.jpeg" alt="Galeria 4" title="Galeria 4"></img >
+					<img src="./img/galeria_05.jpeg" alt="Galeria 5" title="Galeria 5"></img >
+				</article>
+				<img src="./img/galeria_06.jpeg" alt="Galeria 6" title="Galeria 6"></img >
+
+			</article>
 		</section>
 
 		<section id="TARIFAS">
 			<h1>Tarifas</h1>
 			<div class="wrapper flex"> 
 				<article>
-					<img src="asdasd" alt="Imagen Alojamiento 1" title="Imagen Alojamiento 1">
+					<img src="./img/alojamiento1.jpeg" alt="Imagen Alojamiento 1" title="Imagen Alojamiento 1">
 					<h2>Alojamiento tipo 1</h2>
 					<p>Simple
 						Alojamiento Compartido
@@ -80,7 +88,7 @@
 					</div>
 				</article>
 				<article>
-					<img src="asdasd" alt="Imagen Alojamiento 2" title="Imagen Alojamiento 2">
+					<img src="./img/alojamiento2.jpeg" alt="Imagen Alojamiento 2" title="Imagen Alojamiento 2">
 					<h2>Alojamiento tipo 2</h2>
 					<p>Doble
 						Alojamiento entero
@@ -92,7 +100,7 @@
 					</div>
 				</article>
 				<article>
-					<img src="asdasd" alt="Imagen Alojamiento 3" title="Imagen Alojamiento 3">
+					<img src="./img/alojamiento3.jpeg" alt="Imagen Alojamiento 3" title="Imagen Alojamiento 3">
 					<h2>Alojamiento tipo 3</h2>
 					<p>4 personas
 						Alojamiento entero
@@ -105,7 +113,7 @@
 					</div>
 				</article>
 				<article>
-					<img src="asdasd" alt="Imagen Alojamiento 4" title="Imagen Alojamiento 4">
+					<img src="./img/alojamiento4.jpeg" alt="Imagen Alojamiento 4" title="Imagen Alojamiento 4">
 					<h2>Alojamiento tipo 4</h2>
 					<p>Doble
 						Alojamiento entero
@@ -123,22 +131,26 @@
 		<section id="RESERVAS">
 			<h1>Reservas</h1>
 
-			<form action="">
-				<div>
+			<form action="#" method="POST" autocomplete="on" class="wrappser">
+				<article>
 					<label for="txtNombreCompleto">Nombre y apellido (*)</label>
-					<input type="text" id="txtNombreCompleto" >
+					<input type="text" id="txtNombreCompleto" required >
+				</article>
 
+				<article>
 					<label for="txtCantidadPersonas">Cantidad de personas (*)</label>
-					<input type="text" id="txtCantidadPersonas" >
-				</div>
+					<input type="text" id="txtCantidadPersonas"  required>
+				</article>
+				
+				<article>
+					<label  for="selTipoAlojamiento">Tipo de alojamiento (*)</label>
+					<select id="selTipoAlojamiento" required>
+						<option value="Apartamento">Apartamento</option>
+						<option value="Casa">Casa</option>
+					</select>
+				</article>
 
-				<label  for="selTipoAlojamiento">Tipo de alojamiento (*)</label>
-				<select id="selTipoAlojamiento">
-					<option value="Apartamento">Apartamento</option>
-					<option value="Casa">Casa</option>
-				</select>
-
-				<button type="submit">RESERVAR</button>
+				<input type="submit" value="RESERVAR" id="btnReservar"></input>
 			</form>
 
 

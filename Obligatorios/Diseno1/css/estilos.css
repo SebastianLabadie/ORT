@@ -11,7 +11,7 @@ html{
 }
 
 body{
-	background-color:#CAD5F3;
+	/* background-color:#CAD5F3; */
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
@@ -32,13 +32,17 @@ section > h1{
 	margin: 0 auto;
 }
 
+img{
+	max-width: 100%;
+}
+
 
 /* HEADER */
 
 nav{
 	/* width: 600px; */
 	margin: 0 auto;
-    
+    height:150px;
 }
 
 
@@ -47,22 +51,22 @@ nav ul{
 }
 
 nav ul li{
-	width: 100px;
 	display: inline-block;
 }
 
 nav ul li a{
 	display: block;
-	background-color: black;
 	text-align: center;
-	padding: 15px;
-	color: white;
-	margin-bottom: 2px;
+	padding: 20px;
+	font-size: 20px;
+	color: #757575;
+	margin: 2px 12px;
 	text-decoration: none;
 }
 
 nav ul li a:hover{
-	background-color: blue;
+	color: orange;
+	text-decoration: underline;
 }
 
 section{
@@ -97,12 +101,46 @@ section{
 /* seccion PROMOS */
 #PROMOS img{
 	height: 250px;
-	max-width: 100%;
 	
 }
 
-#PROMOS article{
-	margin: 0 24px;
+#PROMOS article:nth-child(1){
+	margin-right: 24px;
+}
+
+#PROMOS article:nth-child(2){
+	margin-left: 24px;
+}
+
+/* seccion FOTOS */
+
+#FOTOS img{
+	height: 100%;
+	border: 1px solid black;
+	object-fit: cover;
+}
+
+#FOTOS img:hover{
+	transform: scale(1.1);
+	transition: all 0.5s;
+}
+
+#FOTOS article{
+	display: grid;
+	grid-template-columns: 25% 50% 25%;
+	gap: 15px;
+	height: 400px;
+}
+
+#FOTOS > article > article{
+	grid-template-columns: 1fr 1fr;
+}
+
+
+/* seccion TARIFAS */
+
+#TARIFAS article{
+	margin-right: 10px;
 }
 
 /* seccion RESERVAS */
@@ -110,13 +148,25 @@ input, label {
     display:block;
 }
 
-form{
+form {
 	width: 500px;
+	display: grid;
+	place-content: center;
+	margin: 0px auto;
+	grid-template-columns: 1fr 1fr; 
+	grid-template-rows: 1fr 1fr 1fr; 
+	gap: 10px 20px; 
+	grid-template-areas: 
+	  "a b"
+	  "c c"
+	  "d d"; 
 }
 
-form div{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+form article input,form article select{
+	width: 100%;
 }
 
+form :nth-child(1) { grid-area: a; }
+form :nth-child(2){ grid-area: b; }
+form :nth-child(3) { grid-area: c; }
+form :nth-child(4){ grid-area: d; }
