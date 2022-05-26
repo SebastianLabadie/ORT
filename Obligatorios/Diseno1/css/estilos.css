@@ -13,11 +13,17 @@ html{
 body{
 	/* background-color:#CAD5F3; */
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	/* background: rgb(255,224,178);
+	background: radial-gradient(circle, rgba(255,224,178,1) 22%, rgba(255,214,152,1) 37%, rgba(255,204,128,1) 66%, rgba(255,183,77,1) 91%); */
 }
 
 section > h1{
 	text-align: center;
 	margin: 12px 0;
+}
+
+section:nth-child(2n+2){
+	background-color: #FFE0B2;
 }
 
 .flex{
@@ -38,6 +44,10 @@ img{
 
 
 /* HEADER */
+
+header{
+	background: linear-gradient(to left, #FFECB3, #FFE0B2);
+}
 
 nav{
 	/* width: 600px; */
@@ -73,6 +83,10 @@ section{
 	height: 500px;
 }
 
+.logo:hover{
+	cursor: pointer;
+}
+
 /* seccion SALUDO */
 
 #saludo{
@@ -98,10 +112,19 @@ section{
 	font-weight: 800;
 }
 
+#saludo p{
+	color: white;
+    font-size: 18px;
+}
+
 /* seccion PROMOS */
 #PROMOS img{
 	height: 250px;
 	
+}
+
+#PROMOS article{
+	width: 49%;
 }
 
 #PROMOS article:nth-child(1){
@@ -143,7 +166,55 @@ section{
 	margin-right: 10px;
 }
 
+.btn {
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #000;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-flex;
+  fill: #000;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  height: 28px;
+  justify-content: center;
+  letter-spacing: -.8px;
+  line-height: 24px;
+  min-width: 120px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:focus {
+  color: #171e29;
+}
+
+.btn:hover {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+.btn:active {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+
 /* seccion RESERVAS */
+#RESERVAS{
+	height: 220px;
+}
+
 input, label {
     display:block;
 }
@@ -170,3 +241,26 @@ form :nth-child(1) { grid-area: a; }
 form :nth-child(2){ grid-area: b; }
 form :nth-child(3) { grid-area: c; }
 form :nth-child(4){ grid-area: d; }
+
+.my-1{
+	margin: 12px 0px;
+}
+
+.mt-1{
+	margin-top: 12px;
+}
+
+/* footer */
+
+footer{
+	height: 70px;
+	background-color: #FFCC80;
+}
+
+footer img{
+	width: 145px;
+}
+
+footer object{
+	margin-left: 12px;
+}
