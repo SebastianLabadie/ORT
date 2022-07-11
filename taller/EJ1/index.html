@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+   
+    <div id="menu" class="my-2">
+      <input type="button" value="Inicio" id="btnInicio" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" />
+      <input type="button" value="Ingreso" id="btnIngreso" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" />
+      <input type="button" value="Registro" id="btnRegistro" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" />
+      <input type="button" value="Cerrar Sesion" id="btnCerrarSesion" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" />
+    </div>
+    <div id="inicio">
+      <h1>Bienvenido al taller</h1>
+
+      <div id="divInicioUsuarioDesconocido">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti quae
+          amet delectus laborum dolores maxime deserunt tempore reiciendis saepe
+          harum.
+        </p>
+      </div>
+
+      <div id="divInicioUsuarioLogeado">
+          <table class="table-auto" >
+              <thead>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Pais</th>
+                  <th>Usuario</th>
+              </thead>
+
+              <tbody id="tablaInicioBody">
+                 <tr>
+                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                    <td>Malcolm Lockyer</td>
+                    <td>1961</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+
+    <div id="login">
+        <h4>Iniciar Sesion</h4>
+
+        <label for="usuario">Usuario</label>
+        <input type="text" name="usuario" id="usuario" class="my-2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <br>
+
+        <label for="pass">Password</label>
+        <input type="password" name="pass" id="pass" class="my-2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <br>
+        <input type="button" value="Iniciar Sesion" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer" />
+    </div>
+
+    <hr class="my-4">
+    <div id="registro">
+        <h4>Registro</h4>
+
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" class="my-2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <br>
+
+        <label for="apellido none">Apellido</label>
+        <input type="text" name="apellido" id="apellido" class="my-2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <br>
+
+
+        <select id="">
+            <option value="ndf">Seeccione...</option>
+            <option value="ar">Argentina</option>
+            <option value="br">Brasil</option>
+        </select>
+        <br>
+
+        <label for="nombreUsu">Nombre de Usuario</label>
+        <input type="text" name="nombreUsu" id="nombreUsu" class="my-2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <br>
+
+        <label for="passReg">Contrasena</label>
+        <input type="text" name="passReg" id="passReg" class="my-2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <br>
+
+        <input type="button" value="Registrarse" class="bg-blue-500 hover:bg-blue-700 hover:cursor-pointer text-white font-bold py-2 px-4 rounded " />
+    </div>
+
+    <script type="text/javascript" src="js/estructuras.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
