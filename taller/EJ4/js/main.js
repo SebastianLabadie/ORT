@@ -51,12 +51,14 @@ function ars(aviso) {
 
     let tabla = `<table class="table-auto" >
     <thead>
-        <th>Nombre</th>
-        <th>Especie</th>
-        <th>Genero</th>
-        <th>Casa</th>
-        <th>Sangre</th>
-        <th>Imagen</th>
+        <tr>
+        <th class="px-4 py-2 text-emerald-600">Nombre</th>
+        <th class="px-4 py-2 text-emerald-600">Especie</th>
+        <th class="px-4 py-2 text-emerald-600">Genero</th>
+        <th class="px-4 py-2 text-emerald-600">Casa</th>
+        <th class="px-4 py-2 text-emerald-600">Sangre</th>
+        <th class="px-4 py-2 text-emerald-600">Imagen</th>
+        </tr>
     </thead>
 
     <tbody id="tbl">
@@ -72,11 +74,11 @@ function ars(aviso) {
     
         data.forEach(personaje => {
             tabla +=`<tr>
-                <td>${personaje.name}</td>
-                <td>${personaje.species}</td>
-                <td>${personaje.gender}</td>
-                <td>${personaje.house}</td>
-                <td>${personaje.ancestry}</td>
+                <td class="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">${personaje.name}</td>
+                <td class="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">${personaje.species}</td>
+                <td class="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">${personaje.gender}</td>
+                <td class="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">${personaje.house}</td>
+                <td class="border border-emerald-500 px-4 py-2 text-emerald-600 font-medium">${personaje.ancestry}</td>
                 <td>
                     <img src="${personaje.image.replace("http","https")}" alt="asd" />
                 </td>
