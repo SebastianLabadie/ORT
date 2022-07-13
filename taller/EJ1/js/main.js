@@ -68,11 +68,25 @@ function buttonEvents(){
 }
 
 function precarga() {
-    let p1 = new Pais("ARG","Argentina")
-    let p2 = new Pais("BR","Brasil")
-    let p3 = new Pais("URU","Uruguay")
+    let p1 = new Pais("ARG", "Argentina");
+    let p2 = new Pais("BRA", "Brasil");
+    let p3 = new Pais("UYU", "Uruguay");
+    let p4 = new Pais("PAR", "Paraguay");
+    paises.push(p1, p2, p3,p4);
 
-    paises.push(p1,p2,p3)
+    let u1 = new Usuario("Juan", "Perez", "ARG", "jperez", "1234");
+    usuarios.push(u1);
+    escribirSelectPaises();
+  
+}
+
+function escribirSelectPaises(){
+    let cadena = `<option value="ndf">Seleccione...</option>`;
+  for (let p of paises) {
+      cadena+=`<option value="${p.Codigo}">${p.Nombre}</option>`
+  }
+
+  dqs("#slcPais").innerHTML=cadena;
 }
 
 init()

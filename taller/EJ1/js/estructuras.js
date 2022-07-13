@@ -1,23 +1,19 @@
-
-let personas = []
-
-let paises = []
-
-
+//let UsuarioLogueado = false;
+let usuarios = new Array();
+let paises = new Array();
 class Usuario{
-    constructor(nom,ape,pais,user,password){
-        this.Nombre = nom
-        this.Apellido = ape
-        this.Pais = pais
-        this.Usuario = user
-        this.Password = password
-    
+    constructor(nombre,apellido, pais, nombreUsuario,password){
+        this.Nombre = nombre;
+        this.Apellido = apellido;
+        this.Pais = pais;
+        this.NombreUsuario = nombreUsuario;
+        this.Password = password;
     }
 }
 
 class Pais{
-    constructor(ac,nom){
-        this.Nombre = nom
-        this.ac = ac
+    constructor(codigo,nombre){
+        this.Codigo = codigo;
+        this.Nombre = nombre;
     }
 }
